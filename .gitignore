@@ -1,0 +1,8 @@
+#ignore cookies folder
+cookies/
+#ignore config file
+config.ini
+#ignore article files
+artikkel-*
+#ignore IDE folder
+.idea
