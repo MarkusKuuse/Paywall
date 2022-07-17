@@ -18,7 +18,7 @@ class Delfi:
     def get_content(self):
         options = Options()
         options.headless = True
-        driver = webdriver.Firefox(options=options, executable_path=r"C:\Users\Markus\Desktop\Projektid\geckodriver.exe")
+        driver = webdriver.Firefox(options=options, executable_path='/var/www/html/Paywall/geckodriver')
         url = sys.argv[1]
 
         driver.get(url)
@@ -57,8 +57,6 @@ class Delfi:
             with io.open(article, "w", encoding="utf-8") as f:
                 f.write(html)
                 f.close()
-        else:
-            print("is already saved")
 
         return article
 
@@ -105,7 +103,6 @@ class Delfi:
                 driver.add_cookie(cookie)
 
     def check_cookie(self, sub_domain: str, driver):
-        print(sub_domain)
         if self.sub_domains.__contains__(sub_domain):
             file = Path("cookies/"+sub_domain.split(".")[0]+"_cookies")
             if file.is_file():
@@ -115,12 +112,12 @@ class Delfi:
                 self.set_cookie(driver, sub_domain)
 
         else:
-            print("No such domain")
+            print("ERROR wrong domain, try again")
 
 
 
 
 if __name__ == '__main__':
-    sub_domains = ["forte", "epl", "maaleht", "kroonika", "ekspress", "naistekas", "delfi", "sport", "arileht", "omamaitse"]
+    sub_domains = ["forte", "epl", "maaleht", "kroonika", "ekspress", "naistekas", "delfi", "sport", "arileht", "omamaitse", "eestinaine", "tasku", "reisijuht", "roheportaal", "rus", "lood", "perejakodu", "maakodu", "moodnekodu", "lemmikloom", "ilmateade", "annestiil", "tervispluss", "tv", "kinoveeb", "alkeemia"]
     d = Delfi("Delfi", sub_domains)
     print(d.get_content())

@@ -2,7 +2,7 @@
 
 if(isset($_POST["link"])) {
     $link = $_POST["link"];
-    $command = escapeshellcmd("python Bypass.py $link");
+    $command = escapeshellcmd('python3 Bypass.py $link');
     $result = shell_exec($command);
     echo $result;
     echo $link;
@@ -12,7 +12,7 @@ if(isset($_POST["link"])) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>EPIC WIN</title>
+    <title>Paywall bypass</title>
 </head>
 <body>
 <form action="index1.php" method="post">
