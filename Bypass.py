@@ -20,6 +20,7 @@ class Delfi:
         options.headless = True
         driver = webdriver.Firefox(options=options, executable_path='/var/www/html/Paywall/geckodriver')
         url = sys.argv[1]
+        driver.get(url)
         domain = url.split(".")[0]
 
         if domain.split("//")[1] == "www":
