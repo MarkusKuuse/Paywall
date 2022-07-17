@@ -27,6 +27,7 @@ TODO väga kauges_tulevikus:
 Kontakt:
 * markus(k)uuse01@gm(a)il.com // sulud võta ümbert ära ikka
 * Messenger
+* D1sc0rd: NootBoot#8588
 
 Leidsid vea, veebileht ei tööta või on soovitus? Kirjuta mulle või ava githubis _issue_
 
