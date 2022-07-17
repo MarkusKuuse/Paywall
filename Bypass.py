@@ -20,8 +20,6 @@ class Delfi:
         options.headless = True
         driver = webdriver.Firefox(options=options, executable_path='/var/www/html/Paywall/geckodriver')
         url = sys.argv[1]
-
-        driver.get(url)
         domain = url.split(".")[0]
 
         if domain.split("//")[1] == "www":
@@ -39,8 +37,10 @@ class Delfi:
 
             self.check_cookie(sub_domain, driver)
 
+            driver.get(url)
+            driver.implicitly_wait(2)
             driver.refresh()
-            sleep(4)
+            sleep(2)
 
             if driver.find_elements_by_css_selector(".S-modal-overlay"):  # delete logout warning
                 bg_element = driver.find_element_by_css_selector(".S-modal-overlay")
