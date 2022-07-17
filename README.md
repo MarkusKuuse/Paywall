@@ -19,6 +19,7 @@ TODO tulevikuks:
 * Konto jagamise_klient.
 * Teha kood töötavaks_mobiilsete linkidega (m.).
 * Eemaldada artikli lehelt_reklaamid.
+* Automaatne_redirect teisele lehele.
 
 TODO väga kauges_tulevikus:
 * veebi_plugin mis teeb sisuliselt sama asja.
@@ -27,7 +28,7 @@ Kontakt:
 * markus(k)uuse01@gm(a)il.com // sulud võta ümbert ära ikka
 * Messenger
 
-Leidsid vea? Kirjuta mulle või ava githubis _issue_
+Leidsid vea, veebileht ei tööta või on soovitus? Kirjuta mulle või ava githubis _issue_
 
 Oodatud on ka täiendused teiste poolt!
 

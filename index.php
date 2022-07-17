@@ -21,6 +21,13 @@ if(isset($_POST["link"])) {
     <input type="submit" value="Saada" >
 
 </form>
-<a href="<?php if(isset($result)){echo $result; }?>"> Artikkel saadaval siin</a>
+<?php if(isset($result)) : ?>
+<div class="artikkel">
+<a href="<?php echo $result?>"> Artikkel saadaval siin</a>
+    </div>
+<?php endif;?>
+
+<a href="https://github.com/MarkusKuuse/Paywall" class="git-link">Kood githubis</a>
+
 </body>
 </html>

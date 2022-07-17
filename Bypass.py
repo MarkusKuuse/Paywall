@@ -1,6 +1,6 @@
 from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
 import io
-import bs4
 import pickle
 from configparser import ConfigParser
 from pathlib import Path
@@ -16,39 +16,51 @@ class Delfi:
 
 
     def get_content(self):
-        driver = webdriver.Firefox(executable_path=r"C:\Users\Markus\Desktop\Projektid\geckodriver.exe")
+        options = Options()
+        options.headless = True
+        driver = webdriver.Firefox(options=options, executable_path=r"C:\Users\Markus\Desktop\Projektid\geckodriver.exe")
         url = sys.argv[1]
+
         driver.get(url)
         domain = url.split(".")[0]
-        sub_domain = domain.split("//")[1]
-        self.check_cookie(sub_domain, driver)
-        #driver.find_element_by_xpath("/html/body/div[4]/div/div/div[1]/span/div[1]/div/div/div/div/div[2]/div[1]/div/div[2]/button[1]").click()
-        driver.refresh()
-        sleep(5)
 
-        if driver.find_elements_by_css_selector(".S-modal-overlay"): # delete log on warning
-            bg_element = driver.find_element_by_css_selector(".S-modal-overlay")
-            driver.execute_script("""var element = arguments[0]; 
-        element.parentNode.removeChild(element);""", bg_element)
-
-            log_element = driver.find_element_by_css_selector(".S-modal__content")
-            driver.execute_script("""var element = arguments[0]; 
-        element.parentNode.removeChild(element);""", log_element)
-
-        html = driver.page_source
-        driver.close()
+        if domain.split("//")[1] == "www":
+            sub_domain = url.split(".")[1]
+        else:
+            sub_domain = domain.split("//")[1]
 
         article = url.split("/")
 
         if article[4] == "artikkel":
-            article = article[4]+"-"+article[5]+".html"
+            article = article[4] + "-" + article[5] + ".html"
         else:
-            article = article[3]+"-"+article[4]+".html"
-        with io.open(article, "w", encoding="utf-8") as f:
-            f.write(html)
-            f.close()
+            article = article[3] + "-" + article[4] + ".html"
+        if Path(article).is_file() is False:
 
-        return (article)
+            self.check_cookie(sub_domain, driver)
+
+            driver.refresh()
+            sleep(4)
+
+            if driver.find_elements_by_css_selector(".S-modal-overlay"):  # delete logout warning
+                bg_element = driver.find_element_by_css_selector(".S-modal-overlay")
+                driver.execute_script("""var element = arguments[0]; 
+            element.parentNode.removeChild(element);""", bg_element)
+
+                log_element = driver.find_element_by_css_selector(".S-modal__content")
+                driver.execute_script("""var element = arguments[0]; 
+            element.parentNode.removeChild(element);""", log_element)
+
+            html = driver.page_source
+            driver.close()
+
+            with io.open(article, "w", encoding="utf-8") as f:
+                f.write(html)
+                f.close()
+        else:
+            print("is already saved")
+
+        return article
 
 
     def read_conf(self):
@@ -58,13 +70,12 @@ class Delfi:
         return conf
 
 
-    def log_in(self,data, sub_domain):
-        driver = webdriver.Firefox(executable_path=r"C:\Users\Markus\Desktop\Projektid\geckodriver.exe")
+    def log_in(self,data, sub_domain, driver):
         if sub_domain != "delfi":
             driver.get("https://www."+sub_domain+".delfi.ee")
         else:
             driver.get("https://www.delfi.ee")
-        driver.implicitly_wait(5)
+        driver.implicitly_wait(3)
 
         driver.find_element_by_css_selector("div.C-tab:nth-child(1) > div:nth-child(1) > div:nth-child(2) > button:nth-child(1)").click()  # accept cookies
         driver.implicitly_wait(2)
@@ -83,9 +94,9 @@ class Delfi:
 
 
 
-    def save_cookie(self, sub_domain):
+    def save_cookie(self, sub_domain, driver):
         with io.open("cookies/"+sub_domain+"_cookies", "wb") as f:
-            pickle.dump(self.log_in(self.conf, sub_domain), f)
+            pickle.dump(self.log_in(self.conf, sub_domain, driver), f)
 
     def set_cookie(self, driver, sub_domain):
         with io.open("cookies/"+sub_domain+"_cookies", "rb") as cookief:
@@ -93,14 +104,14 @@ class Delfi:
             for cookie in cookies:
                 driver.add_cookie(cookie)
 
-
     def check_cookie(self, sub_domain: str, driver):
+        print(sub_domain)
         if self.sub_domains.__contains__(sub_domain):
             file = Path("cookies/"+sub_domain.split(".")[0]+"_cookies")
             if file.is_file():
                 self.set_cookie(driver, sub_domain)
             else:
-                self.save_cookie(sub_domain)
+                self.save_cookie(sub_domain, driver)
                 self.set_cookie(driver, sub_domain)
 
         else:
