@@ -2,11 +2,11 @@
 
 D31fi p@yw@llist läbipääsemiseks loodud rakendus.
 
-Kuna see rakendus on alles testimisel, siis igaüht ligi ei lase
+Võtke teadmiseks, et rakendus on testimisel ja võib lakata töötamast iga hetk. Kui nii juhtub, siis võtta minuga ühendust (kontaktid allpool)
 
 Kuidas kasutada?
 1. Võta ühendust, et saaksin su ip whitelistida ja saaksid domeenile ligi
-2. Mine https://6ecloud.me
+2. Mine https://paywall.6ecloud.me
 3. Sisesta d31fi artikli link mida soovid lugeda ja vajuta "Saada"
 4. Mõne hetke pärast ilmub viide artiklile
 
