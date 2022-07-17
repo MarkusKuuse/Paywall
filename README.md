@@ -2,7 +2,7 @@
 
 D31fi p@yw@llist läbipääsemiseks loodud rakendus.
 
-Võtke teadmiseks, et rakendus on testimisel ja võib lakata töötamast iga hetk. Kui nii juhtub, siis võtta minuga ühendust (kontaktid allpool)
+NB! Rakendus on testimisel ja võib lakata töötamast suvalisel momendil. Kui nii juhtub, siis võtta minuga ühendust (kontaktid allpool)
 
 Kuidas kasutada?
 1. Võta ühendust, et saaksin su ip whitelistida ja saaksid domeenile ligi
